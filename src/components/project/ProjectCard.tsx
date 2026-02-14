@@ -1,0 +1,77 @@
+import type { Project } from "@/data/projects";
+import { GlassCard } from "@/components/glass/GlassCard";
+import { skillColorMap } from "@/lib/skill-colors";
+import { cn } from "@/lib/utils";
+import { LaptopPreview } from "./LaptopPreview";
+import { Github } from "lucide-react";
+
+
+type Props = {
+  project: Project;
+};
+
+export function ProjectCard({ project }: Props) {
+  return (
+    <GlassCard
+      className="
+        group relative
+        flex h-full flex-col p-6
+        transition-all duration-300
+        hover:-translate-y-1
+      "
+    >
+      <h3 className="text-lg font-semibold">{project.title}</h3>
+
+      <p className="mt-2 text-sm text-zinc-700 dark:text-white">{project.description}</p>
+
+      <div className="mt-4 flex flex-wrap gap-2">
+        {project.tech.map((tech) => (
+          <span
+            key={tech}
+            className={cn(
+              "rounded-md px-2 py-1 text-xs font-medium transition-colors",
+              skillColorMap[tech] ?? "bg-zinc-100 text-zinc-600",
+            )}
+          >
+            {tech}
+          </span>
+        ))}
+      </div>
+
+      <div className="mt-auto pt-6">
+        <LaptopPreview />
+
+        {project.github && (
+          <div className="mt-4">
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="
+                inline-flex items-center gap-2
+                rounded-md px-3 py-1.5
+                text-sm font-medium
+                bg-white/60 backdrop-blur
+                border border-black/10
+                text-zinc-700
+                transition-all duration-300
+
+                group-hover:bg-zinc-900
+                group-hover:text-white
+              "
+            >
+              <Github
+                className="
+                  size-4
+                  transition-transform duration-300
+                  group-hover:translate-x-1
+                "
+              />
+              View Source
+            </a>
+          </div>
+        )}
+      </div>
+    </GlassCard>
+  );
+}

@@ -1,0 +1,9 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { GlassCard } from "@/components/glass/GlassCard";
+import { skillColorMap } from "@/lib/skill-colors";
+import { cn } from "@/lib/utils";
+import { LaptopPreview } from "./LaptopPreview";
+import { Github } from "lucide-react";
+export function ProjectCard({ project }) {
+    return (_jsxs(GlassCard, { className: "\r\n        group relative\r\n        flex h-full flex-col p-6\r\n        transition-all duration-300\r\n        hover:-translate-y-1\r\n      ", children: [_jsx("h3", { className: "text-lg font-semibold", children: project.title }), _jsx("p", { className: "mt-2 text-sm text-zinc-700 dark:text-white", children: project.description }), _jsx("div", { className: "mt-4 flex flex-wrap gap-2", children: project.tech.map((tech) => (_jsx("span", { className: cn("rounded-md px-2 py-1 text-xs font-medium transition-colors", skillColorMap[tech] ?? "bg-zinc-100 text-zinc-600"), children: tech }, tech))) }), _jsxs("div", { className: "mt-auto pt-6", children: [_jsx(LaptopPreview, {}), project.github && (_jsx("div", { className: "mt-4", children: _jsxs("a", { href: project.github, target: "_blank", rel: "noopener noreferrer", className: "\r\n                inline-flex items-center gap-2\r\n                rounded-md px-3 py-1.5\r\n                text-sm font-medium\r\n                bg-white/60 backdrop-blur\r\n                border border-black/10\r\n                text-zinc-700\r\n                transition-all duration-300\r\n\r\n                group-hover:bg-zinc-900\r\n                group-hover:text-white\r\n              ", children: [_jsx(Github, { className: "\r\n                  size-4\r\n                  transition-transform duration-300\r\n                  group-hover:translate-x-1\r\n                " }), "View Source"] }) }))] })] }));
+}
