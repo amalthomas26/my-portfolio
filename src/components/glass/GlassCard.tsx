@@ -1,10 +1,11 @@
-import type {ReactNode} from 'react';
+import type {ReactNode,HTMLAttributes} from 'react';
 import {cn} from "@/lib/utils"
 
 type GlassCardProps ={
     children:ReactNode
     className?:string
-}
+}&HTMLAttributes<HTMLDivElement>
+
 
 export function GlassCard({children,className}:GlassCardProps){
     return (

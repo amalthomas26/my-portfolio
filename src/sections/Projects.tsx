@@ -9,7 +9,11 @@ import { ProjectCard } from "@/components/project/ProjectCard";
 export function Projects() {
   const skills = extractSkills(projects);
 
+  
   const [activeSkill, setActiveSkill] = useState("All");
+
+  
+  const [activeProject, setActiveProject] = useState<string | null>(null);
 
   const [isPending, startTransition] = useTransition();
 
@@ -23,29 +27,43 @@ export function Projects() {
   function handleSkillChange(skill: string) {
     startTransition(() => {
       setActiveSkill(skill);
+      setActiveProject(null)
     });
+  }
+
+  function handleProjectActivate(id: string) {
+    setActiveProject((prev) => (prev === id ? null : id));
   }
 
   return (
     <Section id="projects">
       <Container>
-        <h2 className="mb-10 text-2xl font-bold">Projects</h2>
+        <h2 className="mb-10 text-2xl font-bold dark:text-white">
+          Projects
+        </h2>
 
         <SkillFilter
           skills={skills}
           active={activeSkill}
           onChange={handleSkillChange}
         />
+
         <div
-          className={`*:grip gap-6
+          className={`
+            grid gap-6
             sm:grid-cols-2
             lg:grid-cols-3
             transition-opacity duration-200
             ${isPending ? "opacity-60" : "opacity-100"}
-            `}
+          `}
         >
           {filteredProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+            <ProjectCard
+              key={project.id}
+              project={project}
+              isActive={activeProject === project.id}
+              onActivate={() => handleProjectActivate(project.id)}
+            />
           ))}
         </div>
       </Container>

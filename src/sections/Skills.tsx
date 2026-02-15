@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 const skills = [
   "JavaScript",
@@ -18,16 +19,13 @@ const skills = [
 ];
 
 export function Skills() {
+  const [active, setActive] = useState<string | null>(null);
+
   return (
     <section
       id="skills"
-      className="
-        relative py-28 md:py-36 overflow-hidden
-        bg-white dark:bg-zinc-950
-        transition-colors duration-300
-      "
+      className="relative py-28 md:py-36 overflow-hidden bg-white dark:bg-zinc-950"
     >
-      {/* Background Accent */}
       <div
         className="
           absolute inset-0 -z-10
@@ -41,61 +39,59 @@ export function Skills() {
         </h2>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-          {skills.map((skill, index) => (
-            <motion.div
-              key={skill}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05 }}
-              viewport={{ once: true }}
-              className="
-                group relative rounded-2xl
-                p-[2px]                       /* exposes gradient clearly */
-                transition-all duration-300
-              "
-            >
-              {/* Gradient Border Layer */}
-              <div
-                className="
-                  absolute inset-0 rounded-2xl
-                  bg-gradient-to-r
-                  from-indigo-500
-                  via-fuchsia-500
-                  to-cyan-500
-                  opacity-0
-                  group-hover:opacity-100
-                  transition-opacity duration-300
-                "
-              />
+          {skills.map((skill, index) => {
+            const isActive = active === skill;
 
-              {/* Inner Card */}
-              <div
-                className="
-                  relative rounded-2xl
-                  bg-white
-                  dark:bg-zinc-900
-
-                  border border-black/10
-                  dark:border-white/10
-
-                  p-6 text-center
-
-                  text-zinc-800
-                  dark:text-zinc-200
-
-                  shadow-sm
-                  transition-all duration-300
-
-                  group-hover:-translate-y-2
-                  group-hover:shadow-xl
-                "
+            return (
+              <motion.div
+                key={skill}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.05 }}
+                viewport={{ once: true }}
+                onClick={() => setActive(skill)}
+                className="group relative rounded-2xl p-[2px] cursor-pointer"
               >
-                <span className="font-medium tracking-wide">
-                  {skill}
-                </span>
-              </div>
-            </motion.div>
-          ))}
+                {/* Gradient Border */}
+                <div
+                  className={`
+                    absolute inset-0 rounded-2xl
+                    bg-gradient-to-r
+                    from-indigo-500
+                    via-fuchsia-500
+                    to-cyan-500
+                    transition-opacity duration-300
+                    ${
+                      isActive
+                        ? "opacity-100"
+                        : "opacity-0 group-hover:opacity-100"
+                    }
+                  `}
+                />
+
+                {/* Inner Card */}
+                <div
+                  className={`
+                    relative rounded-2xl
+                    bg-white dark:bg-zinc-900
+                    border border-black/10 dark:border-white/10
+                    p-6 text-center
+                    text-zinc-800 dark:text-zinc-200
+                    transition-all duration-300
+                    ${
+                      isActive
+                        ? "-translate-y-2 shadow-xl"
+                        : "group-hover:-translate-y-2 group-hover:shadow-xl"
+                    }
+                  `}
+                >
+                  <span className="font-medium tracking-wide">
+                    {skill}
+                  </span>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

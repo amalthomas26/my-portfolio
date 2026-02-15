@@ -5,24 +5,33 @@ import { cn } from "@/lib/utils";
 import { LaptopPreview } from "./LaptopPreview";
 import { Github } from "lucide-react";
 
-
 type Props = {
   project: Project;
+  isActive: boolean;
+  onActivate: () => void;
 };
 
-export function ProjectCard({ project }: Props) {
+export function ProjectCard({ project, isActive, onActivate }: Props) {
   return (
     <GlassCard
-      className="
-        group relative
-        flex h-full flex-col p-6
-        transition-all duration-300
-        hover:-translate-y-1
-      "
+      onClick={onActivate}
+      className={cn(
+        `
+          group relative
+          flex h-full flex-col p-6
+          transition-all duration-300
+          cursor-pointer
+        `,
+        isActive
+          ? "-translate-y-1 shadow-xl"
+          : "hover:-translate-y-1"
+      )}
     >
       <h3 className="text-lg font-semibold">{project.title}</h3>
 
-      <p className="mt-2 text-sm text-zinc-700 dark:text-white">{project.description}</p>
+      <p className="mt-2 text-sm text-zinc-700 dark:text-white">
+        {project.description}
+      </p>
 
       <div className="mt-4 flex flex-wrap gap-2">
         {project.tech.map((tech) => (
@@ -30,7 +39,7 @@ export function ProjectCard({ project }: Props) {
             key={tech}
             className={cn(
               "rounded-md px-2 py-1 text-xs font-medium transition-colors",
-              skillColorMap[tech] ?? "bg-zinc-100 text-zinc-600",
+              skillColorMap[tech] ?? "bg-zinc-100 text-zinc-600"
             )}
           >
             {tech}
@@ -47,26 +56,22 @@ export function ProjectCard({ project }: Props) {
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="
-                inline-flex items-center gap-2
-                rounded-md px-3 py-1.5
-                text-sm font-medium
-                bg-white/60 backdrop-blur
-                border border-black/10
-                text-zinc-700
-                transition-all duration-300
-
-                group-hover:bg-zinc-900
-                group-hover:text-white
-              "
+              className={cn(
+                `
+                  inline-flex items-center gap-2
+                  rounded-md px-3 py-1.5
+                  text-sm font-medium
+                  bg-white/60 backdrop-blur
+                  border border-black/10
+                  text-zinc-700
+                  transition-all duration-300
+                `,
+                isActive
+                  ? "bg-zinc-900 text-white"
+                  : "group-hover:bg-zinc-900 group-hover:text-white"
+              )}
             >
-              <Github
-                className="
-                  size-4
-                  transition-transform duration-300
-                  group-hover:translate-x-1
-                "
-              />
+              <Github className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
               View Source
             </a>
           </div>

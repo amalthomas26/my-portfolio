@@ -17,13 +17,14 @@ export default function App() {
         className="
             min-h-screen
     overflow-x-hidden
-    bg-linearto-br
+    bg-gradient-to-br
     from-white
     via-zinc-50
     to-indigo-50
     dark:from-zinc-950
     dark:via-zinc-900
     dark:to-black
+ 
         "
       >
         <Hero />
