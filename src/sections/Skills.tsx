@@ -26,12 +26,7 @@ export function Skills() {
       id="skills"
       className="relative py-28 md:py-36 overflow-hidden bg-white dark:bg-zinc-950"
     >
-      <div
-        className="
-          absolute inset-0 -z-10
-          bg-[radial-gradient(circle_at_30%_20%,rgba(99,102,241,0.12),transparent_40%)]
-        "
-      />
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_30%_20%,rgba(99,102,241,0.12),transparent_40%)]" />
 
       <div className="container mx-auto px-6 max-w-5xl">
         <h2 className="text-3xl md:text-4xl font-bold text-zinc-900 dark:text-white mb-14">
@@ -49,27 +44,26 @@ export function Skills() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
                 viewport={{ once: true }}
-                onClick={() => setActive(skill)}
+                onClick={() =>
+                  setActive((prev) => (prev === skill ? null : skill))
+                }
                 className="group relative rounded-2xl p-[2px] cursor-pointer"
               >
-                {/* Gradient Border */}
+          
                 <div
                   className={`
                     absolute inset-0 rounded-2xl
-                    bg-gradient-to-r
-                    from-indigo-500
-                    via-fuchsia-500
-                    to-cyan-500
+                    bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-cyan-500
                     transition-opacity duration-300
                     ${
                       isActive
                         ? "opacity-100"
-                        : "opacity-0 group-hover:opacity-100"
+                        : "opacity-0 md:group-hover:opacity-100"
                     }
                   `}
                 />
 
-                {/* Inner Card */}
+             
                 <div
                   className={`
                     relative rounded-2xl
@@ -81,7 +75,7 @@ export function Skills() {
                     ${
                       isActive
                         ? "-translate-y-2 shadow-xl"
-                        : "group-hover:-translate-y-2 group-hover:shadow-xl"
+                        : "md:group-hover:-translate-y-2 md:group-hover:shadow-xl"
                     }
                   `}
                 >

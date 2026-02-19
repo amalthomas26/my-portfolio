@@ -5,18 +5,15 @@ export function Contact() {
   const [active, setActive] = useState<string | null>(null);
 
   return (
-    <section
-      id="contact"
-      className="py-24 bg-zinc-50 dark:bg-zinc-900"
-    >
+    <section id="contact" className="py-24 bg-zinc-50 dark:bg-zinc-900">
       <div className="container mx-auto px-6 max-w-2xl">
         <h2 className="text-3xl font-bold text-zinc-900 dark:text-white">
           Let’s Connect
         </h2>
 
         <p className="mt-3 text-zinc-600 dark:text-white">
-          Actively seeking full-time opportunities as a Full Stack, Frontend, or
-          Backend Developer.
+          Actively seeking full-time opportunities as a Full Stack,
+          Frontend, or Backend Developer.
         </p>
 
         <div className="mt-12 space-y-6">
@@ -66,7 +63,7 @@ export function Contact() {
 type ContactCardProps = {
   id: string;
   active: string | null;
-  setActive: (id: string) => void;
+  setActive: React.Dispatch<React.SetStateAction<string | null>>;
   href: string;
   icon: React.ReactNode;
   label: string;
@@ -86,41 +83,39 @@ function ContactCard({
 
   return (
     <a
-      onClick={() => setActive(id)}
+      onClick={() =>
+        setActive((prev) => (prev === id ? null : id))
+      }
       href={href}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
       className="group relative block rounded-2xl p-px cursor-pointer"
     >
+     
       <div
         className={`
           absolute inset-0 rounded-2xl
-          bg-gradient-to-r
-          from-indigo-500
-          via-fuchsia-500
-          to-cyan-500
+          bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-cyan-500
           transition-opacity duration-300
           ${
             isActive
               ? "opacity-100"
-              : "opacity-0 group-hover:opacity-100"
+              : "opacity-0 md:group-hover:opacity-100"
           }
         `}
       />
 
+   
       <div
         className={`
-          relative z-10
-          flex items-center gap-4
-          rounded-2xl
-          bg-white dark:bg-zinc-800
+          relative z-10 flex items-center gap-4
+          rounded-2xl bg-white dark:bg-zinc-800
           border border-black/10 dark:border-white/10
-          p-5
-          transition-all duration-300
+          p-5 transition-all duration-300
           ${
             isActive
               ? "-translate-y-1 shadow-xl"
-              : "group-hover:-translate-y-1 group-hover:shadow-xl"
+              : "md:group-hover:-translate-y-1 md:group-hover:shadow-xl"
           }
         `}
       >

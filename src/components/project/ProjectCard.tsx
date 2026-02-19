@@ -24,10 +24,12 @@ export function ProjectCard({ project, isActive, onActivate }: Props) {
         `,
         isActive
           ? "-translate-y-1 shadow-xl"
-          : "hover:-translate-y-1"
+          : "md:hover:-translate-y-1"
       )}
     >
-      <h3 className="text-lg font-semibold">{project.title}</h3>
+      <h3 className="text-lg font-semibold">
+        {project.title}
+      </h3>
 
       <p className="mt-2 text-sm text-zinc-700 dark:text-white">
         {project.description}
@@ -68,10 +70,10 @@ export function ProjectCard({ project, isActive, onActivate }: Props) {
                 `,
                 isActive
                   ? "bg-zinc-900 text-white"
-                  : "group-hover:bg-zinc-900 group-hover:text-white"
+                  : "md:group-hover:bg-zinc-900 md:group-hover:text-white"
               )}
             >
-              <Github className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+              <Github className="size-4 transition-transform duration-300 md:group-hover:translate-x-1" />
               View Source
             </a>
           </div>
