@@ -19,7 +19,7 @@ export function Navbar() {
             <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
 
             <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400">
-              MERN Stack
+              MERN STACK
             </span>
           </div>
 

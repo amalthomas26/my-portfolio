@@ -12,8 +12,8 @@ export function Contact() {
         </h2>
 
         <p className="mt-3 text-zinc-600 dark:text-white">
-          Actively seeking full-time opportunities as a Full Stack,
-          Frontend, or Backend Developer.
+          Actively seeking full-time opportunities as a Full Stack, Frontend, or
+          Backend Developer.
         </p>
 
         <div className="mt-12 space-y-6">
@@ -83,29 +83,26 @@ function ContactCard({
 
   return (
     <a
-      onClick={() =>
-        setActive((prev) => (prev === id ? null : id))
-      }
+      onClick={(e) => {
+        if (!isActive) {
+          e.preventDefault();
+          setActive(id);
+        }
+      }}
       href={href}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
       className="group relative block rounded-2xl p-px cursor-pointer"
     >
-     
       <div
         className={`
           absolute inset-0 rounded-2xl
           bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-cyan-500
           transition-opacity duration-300
-          ${
-            isActive
-              ? "opacity-100"
-              : "opacity-0 md:group-hover:opacity-100"
-          }
+          ${isActive ? "opacity-100" : "opacity-0 md:group-hover:opacity-100"}
         `}
       />
 
-   
       <div
         className={`
           relative z-10 flex items-center gap-4

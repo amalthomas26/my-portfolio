@@ -16,12 +16,7 @@ export function ProjectCard({ project, isActive, onActivate }: Props) {
     <GlassCard
       onClick={onActivate}
       className={cn(
-        `
-          group relative
-          flex h-full flex-col p-6
-          transition-all duration-300
-          cursor-pointer
-        `,
+        "group relative flex h-full flex-col p-6 transition-all duration-300 cursor-pointer",
         isActive
           ? "-translate-y-1 shadow-xl"
           : "md:hover:-translate-y-1"
@@ -50,7 +45,8 @@ export function ProjectCard({ project, isActive, onActivate }: Props) {
       </div>
 
       <div className="mt-auto pt-6">
-        <LaptopPreview />
+        
+        <LaptopPreview isActive={isActive} />
 
         {project.github && (
           <div className="mt-4">
@@ -58,6 +54,7 @@ export function ProjectCard({ project, isActive, onActivate }: Props) {
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
               className={cn(
                 `
                   inline-flex items-center gap-2
@@ -73,7 +70,14 @@ export function ProjectCard({ project, isActive, onActivate }: Props) {
                   : "md:group-hover:bg-zinc-900 md:group-hover:text-white"
               )}
             >
-              <Github className="size-4 transition-transform duration-300 md:group-hover:translate-x-1" />
+              <Github
+                className={cn(
+                  "size-4 transition-transform duration-300",
+                  isActive
+                    ? "translate-x-1"
+                    : "md:group-hover:translate-x-1"
+                )}
+              />
               View Source
             </a>
           </div>
