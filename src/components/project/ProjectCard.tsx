@@ -4,6 +4,7 @@ import { skillColorMap } from "@/lib/skill-colors";
 import { cn } from "@/lib/utils";
 import { LaptopPreview } from "./LaptopPreview";
 import { Github } from "lucide-react";
+import { useHasHover } from "@/hooks/useHasHover";
 
 type Props = {
   project: Project;
@@ -12,14 +13,22 @@ type Props = {
 };
 
 export function ProjectCard({ project, isActive, onActivate }: Props) {
+  const hasHover = useHasHover();
+
   return (
     <GlassCard
-      onClick={onActivate}
+      onClick={() => {
+        if (!hasHover) {
+          onActivate();
+        }
+      }}
       className={cn(
         "group relative flex h-full flex-col p-6 transition-all duration-300 cursor-pointer",
-        isActive
+        hasHover
+          ? "hover:-translate-y-1 hover:shadow-xl"
+          : isActive
           ? "-translate-y-1 shadow-xl"
-          : "md:hover:-translate-y-1"
+          : ""
       )}
     >
       <h3 className="text-lg font-semibold">
@@ -45,8 +54,7 @@ export function ProjectCard({ project, isActive, onActivate }: Props) {
       </div>
 
       <div className="mt-auto pt-6">
-        
-        <LaptopPreview isActive={isActive} />
+        <LaptopPreview isActive={!hasHover && isActive} />
 
         {project.github && (
           <div className="mt-4">
@@ -65,17 +73,21 @@ export function ProjectCard({ project, isActive, onActivate }: Props) {
                   text-zinc-700
                   transition-all duration-300
                 `,
-                isActive
+                hasHover
+                  ? "hover:bg-zinc-900 hover:text-white"
+                  : isActive
                   ? "bg-zinc-900 text-white"
-                  : "md:group-hover:bg-zinc-900 md:group-hover:text-white"
+                  : ""
               )}
             >
               <Github
                 className={cn(
                   "size-4 transition-transform duration-300",
-                  isActive
+                  hasHover
+                    ? "group-hover:translate-x-1"
+                    : isActive
                     ? "translate-x-1"
-                    : "md:group-hover:translate-x-1"
+                    : ""
                 )}
               />
               View Source

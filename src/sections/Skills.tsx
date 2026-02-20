@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useHasHover } from "@/hooks/useHasHover";
 
 const skills = [
   "JavaScript",
@@ -19,7 +20,14 @@ const skills = [
 ];
 
 export function Skills() {
+  const hasHover = useHasHover();
   const [active, setActive] = useState<string | null>(null);
+
+  function handleClick(skill: string) {
+    if (!hasHover) {
+      setActive((prev) => (prev === skill ? null : skill));
+    }
+  }
 
   return (
     <section
@@ -44,26 +52,26 @@ export function Skills() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
                 viewport={{ once: true }}
-                onClick={() =>
-                  setActive((prev) => (prev === skill ? null : skill))
-                }
+                onClick={() => handleClick(skill)}
                 className="group relative rounded-2xl p-[2px] cursor-pointer"
               >
-          
+                {/* Gradient Border */}
                 <div
                   className={`
                     absolute inset-0 rounded-2xl
                     bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-cyan-500
                     transition-opacity duration-300
                     ${
-                      isActive
+                      hasHover
+                        ? "opacity-0 group-hover:opacity-100"
+                        : isActive
                         ? "opacity-100"
-                        : "opacity-0 md:group-hover:opacity-100"
+                        : "opacity-0"
                     }
                   `}
                 />
 
-             
+                
                 <div
                   className={`
                     relative rounded-2xl
@@ -73,9 +81,11 @@ export function Skills() {
                     text-zinc-800 dark:text-zinc-200
                     transition-all duration-300
                     ${
-                      isActive
+                      hasHover
+                        ? "group-hover:-translate-y-2 group-hover:shadow-xl"
+                        : isActive
                         ? "-translate-y-2 shadow-xl"
-                        : "md:group-hover:-translate-y-2 md:group-hover:shadow-xl"
+                        : ""
                     }
                   `}
                 >

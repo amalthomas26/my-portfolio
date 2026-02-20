@@ -14,7 +14,7 @@ export function LaptopPreview({ isActive }: Props) {
         viewBox="0 0 200 130"
         className="transition-all duration-300"
       >
-
+      
         <rect
           x="20"
           y="10"
@@ -25,11 +25,11 @@ export function LaptopPreview({ isActive }: Props) {
             "fill-zinc-800 transition-all duration-300",
             isActive
               ? "fill-zinc-900"
-              : "md:group-hover:fill-zinc-900"
+              : "group-hover:fill-zinc-900"
           )}
         />
 
-     
+   
         <rect
           x="28"
           y="18"
@@ -40,11 +40,11 @@ export function LaptopPreview({ isActive }: Props) {
             "fill-zinc-900 transition-all duration-300",
             isActive
               ? "fill-indigo-500 drop-shadow-[0_0_12px_rgba(99,102,241,0.6)]"
-              : "md:group-hover:fill-indigo-500 md:group-hover:drop-shadow-[0_0_12px_rgba(99,102,241,0.6)]"
+              : "group-hover:fill-indigo-500 group-hover:drop-shadow-[0_0_12px_rgba(99,102,241,0.6)]"
           )}
         />
 
-     
+ 
         <rect
           x="10"
           y="100"
@@ -57,4 +57,3 @@ export function LaptopPreview({ isActive }: Props) {
     </motion.div>
   );
 }
-

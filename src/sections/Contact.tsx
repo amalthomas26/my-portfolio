@@ -1,5 +1,6 @@
 import { Mail, Phone, Linkedin, Github } from "lucide-react";
 import { useState } from "react";
+import { useHasHover } from "@/hooks/useHasHover";
 
 export function Contact() {
   const [active, setActive] = useState<string | null>(null);
@@ -12,48 +13,14 @@ export function Contact() {
         </h2>
 
         <p className="mt-3 text-zinc-600 dark:text-white">
-          Actively seeking full-time opportunities as a Full Stack, Frontend, or
-          Backend Developer.
+          Actively seeking full-time opportunities.
         </p>
 
         <div className="mt-12 space-y-6">
-          <ContactCard
-            id="email"
-            active={active}
-            setActive={setActive}
-            href="mailto:amalthomaschennattu@gmail.com"
-            icon={<Mail className="size-5 text-indigo-600" />}
-            label="amalthomaschennattu@gmail.com"
-          />
-
-          <ContactCard
-            id="phone"
-            active={active}
-            setActive={setActive}
-            href="tel:+919895114935"
-            icon={<Phone className="size-5 text-emerald-600" />}
-            label="+91 98951 14935"
-          />
-
-          <ContactCard
-            id="linkedin"
-            active={active}
-            setActive={setActive}
-            href="https://www.linkedin.com/in/amalthomas26/"
-            icon={<Linkedin className="size-5 text-blue-600" />}
-            label="LinkedIn Profile"
-            external
-          />
-
-          <ContactCard
-            id="github"
-            active={active}
-            setActive={setActive}
-            href="https://github.com/amalthomas26"
-            icon={<Github className="size-5 text-zinc-800 dark:text-white" />}
-            label="github.com/amalthomas26"
-            external
-          />
+          <ContactCard id="email" active={active} setActive={setActive} href="mailto:amalthomaschennattu@gmail.com" icon={<Mail className="size-5 text-indigo-600" />} label="amalthomaschennattu@gmail.com" />
+          <ContactCard id="phone" active={active} setActive={setActive} href="tel:+919895114935" icon={<Phone className="size-5 text-emerald-600" />} label="+91 98951 14935" />
+          <ContactCard id="linkedin" active={active} setActive={setActive} href="https://www.linkedin.com/in/amalthomas26/" icon={<Linkedin className="size-5 text-blue-600" />} label="LinkedIn Profile" external />
+          <ContactCard id="github" active={active} setActive={setActive} href="https://github.com/amalthomas26" icon={<Github className="size-5 text-zinc-800 dark:text-white" />} label="github.com/amalthomas26" external />
         </div>
       </div>
     </section>
@@ -79,16 +46,19 @@ function ContactCard({
   label,
   external,
 }: ContactCardProps) {
+  const hasHover = useHasHover();
   const isActive = active === id;
+
+  function handleClick(e: React.MouseEvent<HTMLAnchorElement>) {
+    if (!hasHover) {
+      e.preventDefault();
+      setActive((prev) => (prev === id ? null : id));
+    }
+  }
 
   return (
     <a
-      onClick={(e) => {
-        if (!isActive) {
-          e.preventDefault();
-          setActive(id);
-        }
-      }}
+      onClick={handleClick}
       href={href}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
@@ -99,7 +69,13 @@ function ContactCard({
           absolute inset-0 rounded-2xl
           bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-cyan-500
           transition-opacity duration-300
-          ${isActive ? "opacity-100" : "opacity-0 md:group-hover:opacity-100"}
+          ${
+            hasHover
+              ? "opacity-0 group-hover:opacity-100"
+              : isActive
+              ? "opacity-100"
+              : "opacity-0"
+          }
         `}
       />
 
@@ -110,9 +86,11 @@ function ContactCard({
           border border-black/10 dark:border-white/10
           p-5 transition-all duration-300
           ${
-            isActive
+            hasHover
+              ? "group-hover:-translate-y-1 group-hover:shadow-xl"
+              : isActive
               ? "-translate-y-1 shadow-xl"
-              : "md:group-hover:-translate-y-1 md:group-hover:shadow-xl"
+              : ""
           }
         `}
       >
