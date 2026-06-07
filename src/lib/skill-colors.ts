@@ -18,4 +18,13 @@ export const skillColorMap: Record<string, string> = {
   "Apollo Server": "bg-indigo-50 text-indigo-700",
   mongodb: "bg-emerald-50 text-emerald-700",
   Server: "bg-gray-50 text-gray-700",
+
+  // BlinkChat
+  TypeScript: "bg-blue-50 text-blue-700",
+  "Socket.IO": "bg-neutral-100 text-neutral-800",
+  WebRTC: "bg-orange-50 text-orange-700",
+  "AWS EC2": "bg-amber-50 text-amber-700",
+  Nginx: "bg-green-50 text-green-700",
+  Redis: "bg-red-50 text-red-700",
+  JWT: "bg-emerald-50 text-emerald-700",
 };

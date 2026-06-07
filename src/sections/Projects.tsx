@@ -5,29 +5,35 @@ import { Section } from "@/components/layout/Section";
 import { Container } from "@/components/layout/Container";
 import { projects } from "@/data/projects";
 import { ProjectCard } from "@/components/project/ProjectCard";
+import { PinnedProjectCard } from "@/components/project/PinnedProjectCard";
 
 export function Projects() {
   const skills = extractSkills(projects);
 
-  
   const [activeSkill, setActiveSkill] = useState("All");
-
-  
   const [activeProject, setActiveProject] = useState<string | null>(null);
-
   const [isPending, startTransition] = useTransition();
 
   const deferredSkill = useDeferredValue(activeSkill);
 
-  const filteredProjects =
+  const pinnedProjects = projects.filter((p) => p.pinned);
+
+  const regularProjects = projects.filter((p) => !p.pinned);
+
+  const filteredRegular =
     deferredSkill === "All"
-      ? projects
-      : projects.filter((p) => p.tech.includes(deferredSkill));
+      ? regularProjects
+      : regularProjects.filter((p) => p.tech.includes(deferredSkill));
+
+  const filteredPinned =
+    deferredSkill === "All"
+      ? pinnedProjects
+      : pinnedProjects.filter((p) => p.tech.includes(deferredSkill));
 
   function handleSkillChange(skill: string) {
     startTransition(() => {
       setActiveSkill(skill);
-      setActiveProject(null)
+      setActiveProject(null);
     });
   }
 
@@ -48,25 +54,29 @@ export function Projects() {
           onChange={handleSkillChange}
         />
 
-        <div
-          className={`
-            grid gap-6
-            sm:grid-cols-2
-            lg:grid-cols-3
-            transition-opacity duration-200
-            ${isPending ? "opacity-60" : "opacity-100"}
-          `}
-        >
-          {filteredProjects.map((project) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              isActive={activeProject === project.id}
-              onActivate={() => handleProjectActivate(project.id)}
-            />
+        <div className={`transition-opacity duration-200 ${isPending ? "opacity-60" : "opacity-100"}`}>
+          {/* Pinned hero projects */}
+          {filteredPinned.map((project) => (
+            <PinnedProjectCard key={project.id} project={project} />
           ))}
+
+          {/* Regular project grid */}
+          <div
+            className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          >
+            {filteredRegular.map((project) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                isActive={activeProject === project.id}
+                onActivate={() => handleProjectActivate(project.id)}
+              />
+            ))}
+          </div>
         </div>
       </Container>
     </Section>
   );
 }
+
+

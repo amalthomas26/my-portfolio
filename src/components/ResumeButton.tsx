@@ -12,8 +12,8 @@ export function ResumeButton() {
     setProgress(0);
 
     const link = document.createElement("a");
-    link.href = "/resume-backend.pdf";
-    link.download = "Amal_Thomas_Resume.pdf";
+    link.href = "/Amal_Thomas_ATS_Resume.pdf";
+    link.download = "Amal_Thomas_ATS_Resume.pdf";
     link.click();
 
     let value = 0;
